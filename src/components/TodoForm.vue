@@ -13,26 +13,28 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+import { ADD_TODO } from "@/store/action-types";
+
 export default {
   name: "TaskForm",
-  props: {
-    todos: Array
-  },
   data() {
     return {
       todo: ""
     };
   },
   methods: {
+    ...mapActions([ADD_TODO]),
     createTask() {
       const task = {
-        id: this.todos.length + 1,
+        id: this.allTodos.length + 1,
         title: this.todo,
         done: false
       };
-      this.todos.push(task);
+      this[ADD_TODO](task);
       this.todo = "";
     }
-  }
+  },
+  computed: mapGetters(["allTodos"])
 };
 </script>

@@ -2,7 +2,7 @@
   <div>
     <h3>{{ listTitle }}</h3>
     <ul>
-      <li v-for="todo in filteredTodoList(todos)" :key="todo.id">
+      <li v-for="todo in filteredTodoList(allTodos)" :key="todo.id">
         <el-checkbox v-model="todo.done">
           <span :class="{ done: todo.done }">{{ todo.title }}</span>
         </el-checkbox>
@@ -18,14 +18,15 @@
 </style>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "TodoList",
   props: {
     listTitle: String,
-    todos: Array,
     taskStatus: Boolean
   },
   computed: {
+    ...mapGetters(["allTodos"]),
     filteredTodoList() {
       console.log("*** debug ***");
       return function(todos) {
