@@ -1,6 +1,7 @@
 <template>
   <div>
-    <el-form :inline="true" label-width="120px">
+    <!-- Enterを押しても送信されてないようにする -->
+    <el-form :inline="true" label-width="120px" @submit.native.prevent>
       <el-form-item>
         <el-input placeholder="タスクを入力" v-model="todo"></el-input>
       </el-form-item>
