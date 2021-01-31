@@ -2,14 +2,7 @@
   <el-container>
     <el-main>
       <h1>Todo {{ msg }}</h1>
-      <el-form :inline="true" label-width="120px">
-        <el-form-item>
-          <el-input placeholder="タスクを入力" v-model="todo"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="createTask">ボタン</el-button>
-        </el-form-item>
-      </el-form>
+      <TodoForm :todos="todos" />
       <TodoList listTitle="Todo" :todos="todos" :taskStatus="false" />
       <TodoList listTitle="Done" :todos="todos" :taskStatus="true" />
     </el-main>
@@ -24,11 +17,13 @@
 
 <script>
 import TodoList from "@/components/TodoList.vue";
+import TodoForm from "@/components/TodoForm.vue";
 
 export default {
   name: "Todo",
   components: {
-    TodoList
+    TodoList,
+    TodoForm
   },
   data() {
     return {
@@ -52,17 +47,6 @@ export default {
         }
       ]
     };
-  },
-  methods: {
-    createTask() {
-      const task = {
-        id: this.todos.length + 1,
-        title: this.todo,
-        done: false
-      };
-      this.todos.push(task);
-      this.todo = "";
-    }
   }
 };
 </script>
