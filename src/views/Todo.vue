@@ -2,22 +2,8 @@
   <el-container>
     <el-main>
       <h1>Todo {{ msg }}</h1>
-      <h3>Todo</h3>
-      <ul>
-        <li v-for="todo in todoList(todos)" :key="todo.id">
-          <el-checkbox v-model="todo.done">
-            <span :class="{ done: todo.done }">{{ todo.title }}</span>
-          </el-checkbox>
-        </li>
-      </ul>
-      <h3>Done</h3>
-      <ul>
-        <li v-for="todo in doneList(todos)" :key="todo.id">
-          <el-checkbox v-model="todo.done">
-            <span :class="{ done: todo.done }">{{ todo.title }}</span>
-          </el-checkbox>
-        </li>
-      </ul>
+      <TodoList listTitle="Todo" :todos="todos" :taskStatus="false" />
+      <TodoList listTitle="Done" :todos="todos" :taskStatus="true" />
     </el-main>
   </el-container>
 </template>
@@ -29,8 +15,13 @@
 </style>
 
 <script>
+import TodoList from "@/components/TodoList.vue";
+
 export default {
   name: "Todo",
+  components: {
+    TodoList
+  },
   data() {
     return {
       msg: "hello",
@@ -52,18 +43,6 @@ export default {
         }
       ]
     };
-  },
-  computed: {
-    todoList() {
-      return function(todos) {
-        return todos.filter(todo => todo.done === false);
-      };
-    },
-    doneList() {
-      return function(todos) {
-        return todos.filter(todo => todo.done === true);
-      };
-    }
   },
   methods: {
     toggleTaskStatus(task) {
