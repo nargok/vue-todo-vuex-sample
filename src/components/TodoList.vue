@@ -28,9 +28,7 @@ export default {
   computed: {
     ...mapGetters(["allTodos"]),
     filteredTodoList() {
-      console.log("*** debug ***");
       return function(todos) {
-        console.log(todos);
         return todos.filter(todo => todo.done === this.taskStatus);
       };
     }
